@@ -9,15 +9,21 @@ import { handleError } from "../utils";
 // CREATE
 export async function createUser(user: CreateUserParams) {
   try {
+    console.log("📥 createUser called with:", user); // Log incoming user data
+
     await connectToDatabase();
+    console.log("✅ Connected to database"); // Confirm DB connection
 
     const newUser = await User.create(user);
+    console.log("✅ User created successfully:", newUser); // Confirm DB insertion
 
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
+    console.error("❌ Error in createUser:", error); // Log any errors
     handleError(error);
   }
 }
+
 
 // READ
 export async function getUserById(userId: string) {
